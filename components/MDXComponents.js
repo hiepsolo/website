@@ -1,11 +1,11 @@
+import { BlogNewsletterForm } from './NewsletterForm'
+import CustomLink from './Link'
+import Image from './Image'
+import Pre from './Pre'
+import TOCInline from './TOCInline'
+import { getMDXComponent } from 'mdx-bundler/client'
 /* eslint-disable react/display-name */
 import { useMemo } from 'react'
-import { getMDXComponent } from 'mdx-bundler/client'
-import Image from './Image'
-import CustomLink from './Link'
-import TOCInline from './TOCInline'
-import Pre from './Pre'
-import { BlogNewsletterForm } from './NewsletterForm'
 
 export const MDXComponents = {
   Image,
