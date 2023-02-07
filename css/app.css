@@ -1,0 +1,6 @@
+#__next .list-topics ul {
+  @apply mt-0 list-none pl-0;
+}
+#__next .list-topics ul li {
+  @apply flex items-center gap-4 pl-0;
+}
