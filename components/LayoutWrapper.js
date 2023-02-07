@@ -55,7 +55,7 @@ const LayoutWrapper = ({ children }) => {
 
 const ShortInformation = ({ siteMetadata }) => {
   return (
-    <div className="my-16 flex flex-col gap-4 md:my-20 md:flex-row lg:my-24">
+    <div className="my-12 flex flex-col gap-4 md:my-16 md:flex-row lg:my-20">
       {siteMetadata.image && (
         <Image
           src={siteMetadata.image}
@@ -75,7 +75,7 @@ const ShortInformation = ({ siteMetadata }) => {
         </div>
         <div className="list-topics">
           Welcome to my personal blog, where I write about:
-          <ul>
+          <ul className="border-l border-gray-200">
             <li>
               <span>🔥</span> Self-development
             </li>
