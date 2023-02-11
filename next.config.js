@@ -11,7 +11,7 @@ const ContentSecurityPolicy = `
   media-src 'none';
   connect-src *;
   font-src 'self';
-  frame-src giscus.app
+  frame-src upstash.com
 `
 
 const securityHeaders = [
@@ -66,6 +66,21 @@ module.exports = withBundleAnalyzer({
       },
     ]
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**.midjourney.com',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.unsplash.com',
+      },
+    ],
+  },
+  // images: {
+  //   domains: ['dl.airtable.com', 'v5.airtableusercontent.com'],
+  // },
   webpack: (config, { dev, isServer }) => {
     config.module.rules.push({
       test: /\.svg$/,
