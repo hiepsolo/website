@@ -2,8 +2,7 @@ import Image from '@/components/Image'
 import Link from '@/components/Link'
 import NewsletterForm from '@/components/NewsletterForm'
 import { PageSEO } from '@/components/SEO'
-import Tag from '@/components/Tag'
-import formatDate from '@/lib/utils/formatDate'
+import PostItem from '@/components/PostItem'
 import { getAllFilesFrontMatter } from '@/lib/mdx'
 import siteMetadata from '@/data/siteMetadata'
 
@@ -19,54 +18,15 @@ export default function Home({ posts }) {
   return (
     <>
       <PageSEO title={siteMetadata.title} description={siteMetadata.description} />
+      <ShortInformation siteMetadata={siteMetadata} />
       <div className="border-t border-gray-200 dark:border-gray-700">
         <ul className="divide-y divide-gray-200 dark:divide-gray-700">
           {!posts.length && 'No posts found.'}
           {posts.slice(0, MAX_DISPLAY).map((frontMatter) => {
-            const { slug, date, title, summary, tags } = frontMatter
+            const { slug } = frontMatter
             return (
-              <li key={slug} className="py-12">
-                <article>
-                  <dl className="mb-2">
-                    <dt className="sr-only">Published on</dt>
-                    <dd className="text-sm font-medium leading-6 text-gray-500 dark:text-gray-400">
-                      <time dateTime={date}>{formatDate(date)}</time>
-                    </dd>
-                  </dl>
-                  <div className="grid grid-cols-4 items-start gap-2 space-y-2 xl:space-y-0">
-                    <div className="col-span-3 space-y-6">
-                      <Link href={`/blog/${slug}`}>
-                        <h2 className="text-base font-bold leading-8 tracking-tight text-gray-900 line-clamp-2 dark:text-gray-100 md:text-xl lg:text-2xl">
-                          {title}
-                        </h2>
-                      </Link>
-                      <Link href={`/blog/${slug}`} className="hidden sm:block">
-                        <div className="prose mt-6 max-w-none text-gray-600 line-clamp-3 dark:text-gray-400">
-                          {summary}
-                        </div>
-                      </Link>
-                    </div>
-                    <div className="flex justify-end">
-                      {siteMetadata.image && (
-                        <Image
-                          src={siteMetadata.image}
-                          width={160}
-                          height={160}
-                          quality={75}
-                          alt="avatar"
-                          className="h-14 w-20 sm:h-40 sm:w-40"
-                        />
-                      )}
-                    </div>
-                  </div>
-                  <div className="text-base font-medium leading-6">
-                    <div className="flex flex-wrap">
-                      {tags.map((tag) => (
-                        <Tag key={tag} text={tag} />
-                      ))}
-                    </div>
-                  </div>
-                </article>
+              <li key={slug} className="lg:12 py-8 md:py-10">
+                <PostItem {...frontMatter} />
               </li>
             )
           })}
@@ -89,5 +49,46 @@ export default function Home({ posts }) {
         </div>
       )}
     </>
+  )
+}
+const ShortInformation = ({ siteMetadata }) => {
+  return (
+    <div className="mb-12 flex flex-col gap-4 md:mb-16 md:flex-row lg:mb-20">
+      {siteMetadata.image && (
+        <Image
+          src={siteMetadata.image}
+          width={128}
+          height={128}
+          quality={75}
+          alt="avatar"
+          className="h-32 w-32 rounded-full border border-gray-100 border-opacity-80"
+        />
+      )}
+      <div className="prose flex flex-col gap-4 text-gray-500 dark:text-gray-400 lg:prose-xl">
+        <h4 className="dark:text-gray-50">Hi 👋, I'm Hiep from Viet Nam 🇻🇳</h4>
+        <div>I'm a full-stack software engineer</div>
+        <div>
+          I ❤️ solving user problems, building ideas to reality, and especially developing UI by
+          Reactjs.
+        </div>
+        <div className="list-topics">
+          Welcome to my personal blog, where I write about:
+          <ul className="border-l border-gray-200">
+            <li>
+              <span>🔥</span> Self-development
+            </li>
+            <li>
+              <span>🦄</span> Startup
+            </li>
+            <li>
+              <span>🤖</span> AI
+            </li>
+            <li>
+              <span>🕊️</span> Journey to reach financial freedom
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
   )
 }

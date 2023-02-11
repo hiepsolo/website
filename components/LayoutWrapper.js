@@ -1,7 +1,5 @@
 import Footer from './Footer'
-import Image from './Image'
 import Link from './Link'
-import Logo from '@/data/logo.svg'
 import MobileNav from './MobileNav'
 import SectionContainer from './SectionContainer'
 import ThemeSwitch from './ThemeSwitch'
@@ -12,13 +10,10 @@ const LayoutWrapper = ({ children }) => {
   return (
     <SectionContainer>
       <div className="flex h-screen flex-col justify-between">
-        <header className="flex items-center justify-between border-b py-10">
+        <header className="mb-12 flex items-center justify-between border-b py-10 md:mb-16 lg:mb-20">
           <div>
             <Link href="/" aria-label={siteMetadata.headerTitle}>
               <div className="flex items-center justify-between">
-                <div className="mr-3">
-                  <Logo />
-                </div>
                 {typeof siteMetadata.headerTitle === 'string' ? (
                   <div className="hidden h-6 text-2xl font-semibold sm:block">
                     {siteMetadata.headerTitle}
@@ -45,53 +40,11 @@ const LayoutWrapper = ({ children }) => {
             <MobileNav />
           </div>
         </header>
-        <ShortInformation siteMetadata={siteMetadata} />
+        {/* <ShortInformation siteMetadata={siteMetadata} /> */}
         <main className="mb-auto">{children}</main>
         <Footer />
       </div>
     </SectionContainer>
-  )
-}
-
-const ShortInformation = ({ siteMetadata }) => {
-  return (
-    <div className="my-12 flex flex-col gap-4 md:my-16 md:flex-row lg:my-20">
-      {siteMetadata.image && (
-        <Image
-          src={siteMetadata.image}
-          width={128}
-          height={128}
-          quality={75}
-          alt="avatar"
-          className="h-32 w-32 rounded-full border border-gray-100 border-opacity-80"
-        />
-      )}
-      <div className="prose flex flex-col gap-4 text-gray-500 dark:text-gray-400 lg:prose-xl">
-        <h4 className="dark:text-gray-50">Hi 👋, I'm Hiep from Viet Nam 🇻🇳</h4>
-        <div>I'm a full-stack software engineer</div>
-        <div>
-          I ❤️ solving user problems, building ideas to reality, and especially developing UI by
-          Reactjs.
-        </div>
-        <div className="list-topics">
-          Welcome to my personal blog, where I write about:
-          <ul className="border-l border-gray-200">
-            <li>
-              <span>🔥</span> Self-development
-            </li>
-            <li>
-              <span>🦄</span> Startup
-            </li>
-            <li>
-              <span>🤖</span> AI
-            </li>
-            <li>
-              <span>🕊️</span> Journey to reach financial freedom
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
   )
 }
 
