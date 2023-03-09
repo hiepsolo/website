@@ -66,21 +66,21 @@ module.exports = withBundleAnalyzer({
       },
     ]
   },
-  images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: '**.midjourney.com',
-      },
-      {
-        protocol: 'https',
-        hostname: '**.unsplash.com',
-      },
-    ],
-  },
   // images: {
-  //   domains: ['dl.airtable.com', 'v5.airtableusercontent.com'],
+  //   remotePatterns: [
+  //     {
+  //       protocol: 'https',
+  //       hostname: '**.midjourney.com',
+  //     },
+  //     {
+  //       protocol: 'https',
+  //       hostname: '**.unsplash.com',
+  //     },
+  //   ],
   // },
+  images: {
+    domains: ['dl.airtable.com', 'v5.airtableusercontent.com'],
+  },
   webpack: (config, { dev, isServer }) => {
     config.module.rules.push({
       test: /\.svg$/,

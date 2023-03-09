@@ -7,7 +7,7 @@ import SectionContainer from '@/components/SectionContainer'
 import formatDate from '@/lib/utils/formatDate'
 import siteMetadata from '@/data/siteMetadata'
 
-export default function PostSimple({ frontMatter, authorDetails, next, prev, children }) {
+export default function PostSimple({ frontMatter, next, prev, children }) {
   const { date, title } = frontMatter
 
   return (

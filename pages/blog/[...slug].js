@@ -1,4 +1,5 @@
-import { formatSlug, getAllFilesFrontMatter, getFileBySlug, getFiles } from '@/lib/mdx'
+import { formatSlug, getAllFilesFrontMatter, getFileBySlug } from '@/lib/mdx'
+import { getAllMetaPosts, getPublishedPosts } from '@/lib/airtable'
 
 import { MDXLayoutRenderer } from '@/components/MDXComponents'
 import PageTitle from '@/components/PageTitle'
@@ -8,9 +9,10 @@ import generateRss from '@/lib/generate-rss'
 const DEFAULT_LAYOUT = 'PostSimple'
 
 export async function getStaticPaths() {
-  const posts = getFiles('blog')
+  const metaPosts = getAllMetaPosts()
+  console.log('🚀 ~ file: [...slug].js:13 ~ getStaticPaths ~ metaPosts:', metaPosts)
   return {
-    paths: posts.map((p) => ({
+    paths: metaPosts.map((p) => ({
       params: {
         slug: formatSlug(p).split('/'),
       },
