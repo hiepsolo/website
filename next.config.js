@@ -79,7 +79,7 @@ module.exports = withBundleAnalyzer({
   //   ],
   // },
   images: {
-    domains: ['dl.airtable.com', 'v5.airtableusercontent.com'],
+    domains: ['dl.airtable.com', 'v5.airtableusercontent.com', 'drive.google.com'],
   },
   webpack: (config, { dev, isServer }) => {
     config.module.rules.push({

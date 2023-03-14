@@ -1,3 +1,4 @@
+const { getAllMetaPosts } = require('@/lib/airtable')
 const fs = require('fs')
 const globby = require('globby')
 const matter = require('gray-matter')
@@ -9,17 +10,28 @@ const siteMetadata = require('../data/siteMetadata')
   const pages = await globby([
     'pages/*.js',
     'pages/*.tsx',
-    'data/blog/**/*.mdx',
-    'data/blog/**/*.md',
     'public/tags/**/*.xml',
     '!pages/_*.js',
     '!pages/_*.tsx',
     '!pages/api',
   ])
 
+  const posts = await getAllMetaPosts()
+
   const sitemap = `
         <?xml version="1.0" encoding="UTF-8"?>
         <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+            ${posts
+              .map((post) => {
+                const path = `/blog/${post.Slug}`
+
+                return `
+                        <url>
+                            <loc>${siteMetadata.siteUrl}${path}</loc>
+                        </url>
+                    `
+              })
+              .join('')}
             ${pages
               .map((page) => {
                 // Exclude drafts from the sitemap

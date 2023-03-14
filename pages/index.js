@@ -3,13 +3,13 @@ import Link from '@/components/Link'
 import NewsletterForm from '@/components/NewsletterForm'
 import { PageSEO } from '@/components/SEO'
 import PostItem from '@/components/PostItem'
-import { getAllFilesFrontMatter } from '@/lib/mdx'
+import { getAllPostsFrontMatter } from '@/lib/mdx'
 import siteMetadata from '@/data/siteMetadata'
 
 const MAX_DISPLAY = 5
 
 export async function getStaticProps() {
-  const posts = await getAllFilesFrontMatter('blog')
+  const posts = await getAllPostsFrontMatter()
 
   return { props: { posts } }
 }
@@ -64,7 +64,7 @@ const ShortInformation = ({ siteMetadata }) => {
           className="h-32 w-32 rounded-full border border-gray-100 border-opacity-80"
         />
       )}
-      <div className="prose flex flex-col gap-4 text-gray-500 dark:text-gray-400 lg:prose-xl">
+      <div className="prose flex flex-col gap-4 text-gray-500 lg:prose-xl dark:text-gray-400">
         <h4 className="dark:text-gray-50">Hi 👋, I'm Hiep from Viet Nam 🇻🇳</h4>
         <div>I'm a full-stack software engineer</div>
         <div>

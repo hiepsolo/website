@@ -1,5 +1,5 @@
-import { formatSlug, getAllFilesFrontMatter, getFileBySlug } from '@/lib/mdx'
-import { getAllMetaPosts, getPublishedPosts } from '@/lib/airtable'
+import { SLUG_TYPES, formatSlug, getAllPostsFrontMatter, getFileBySlug } from '@/lib/mdx'
+import { getAllMetaPosts, getPost, getPublishedPosts } from '@/lib/airtable'
 
 import { MDXLayoutRenderer } from '@/components/MDXComponents'
 import PageTitle from '@/components/PageTitle'
@@ -9,8 +9,7 @@ import generateRss from '@/lib/generate-rss'
 const DEFAULT_LAYOUT = 'PostSimple'
 
 export async function getStaticPaths() {
-  const metaPosts = getAllMetaPosts()
-  console.log('🚀 ~ file: [...slug].js:13 ~ getStaticPaths ~ metaPosts:', metaPosts)
+  const metaPosts = await getAllMetaPosts()
   return {
     paths: metaPosts.map((p) => ({
       params: {
@@ -22,18 +21,20 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const allPosts = await getAllFilesFrontMatter('blog')
+  const allPosts = await getAllPostsFrontMatter()
   const postIndex = allPosts.findIndex((post) => formatSlug(post.slug) === params.slug.join('/'))
   const prev = allPosts[postIndex + 1] || null
   const next = allPosts[postIndex - 1] || null
-  const post = await getFileBySlug('blog', params.slug.join('/'))
-  const authorList = post.frontMatter.authors || ['default']
-  const authorPromise = authorList.map(async (author) => {
-    const authorResults = await getFileBySlug('authors', [author])
-    return authorResults.frontMatter
-  })
-  const authorDetails = await Promise.all(authorPromise)
-
+  const post = await getPost(SLUG_TYPES.BLOG, params.slug.join('/'))
+  console.log('post', post)
+  // const authorList = post.frontMatter.authors || ['default']
+  // const authorPromise = authorList.map(async (author) => {
+  //   const authorResults = await getFileBySlug('authors', [author])
+  //   return authorResults.frontMatter
+  // })
+  // const authorDetails = await Promise.all(authorPromise)
+  const authorDetails = await getFileBySlug('authors', ['default'])
+  console.log('rss')
   // rss
   if (allPosts.length > 0) {
     const rss = generateRss(allPosts)
